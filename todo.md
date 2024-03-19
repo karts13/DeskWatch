@@ -2,8 +2,8 @@
   - [x] Application name
   - [x] Website name
 - [x] Include Timer
-- [ ] Inlcude multiple uses
 - [ ] Output in another file
+- [ ] Include multiple uses
 - [ ] Work in background
 - [ ] Clear after one session
 - [ ] Make an App 
