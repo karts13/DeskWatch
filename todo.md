@@ -2,7 +2,7 @@
   - [x] Application name
   - [x] Website name
 - [x] Include Timer
-- [ ] Output in another file
+- [x] Output in another file
 - [ ] Include multiple uses
 - [ ] Work in background
 - [ ] Clear after one session
