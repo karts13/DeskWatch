@@ -1,19 +1,19 @@
-import pygetwindow as gw
+import pygetwindow as window_manager
 import time
 import pyautogui
 import pyperclip
 import datetime
 import json
 
-active_window = ""
+active_window_title = ""
 activity_name = ""
 start_time = datetime.datetime.now()
-first_time = True
+first_iteration = True
 
-def url_to_name(url):
-    string_list = url.split('/')
-    if len(string_list) >= 3:
-        return string_list[2]
+def extract_domain_name(url):
+    url_segments = url.split('/')
+    if len(url_segments) >= 3:
+        return url_segments[2]
     else:
         return "Unknown"
 
@@ -24,29 +24,26 @@ def format_time_delta(delta):
     seconds = int(total_seconds % 60)
     return {'hours': hours, 'minutes': minutes, 'seconds': seconds}
 
-data = []
+activity_logs = []
 
 try: 
     while True:
-        current_window = gw.getActiveWindow().title
+        current_window_title = window_manager.getActiveWindow().title
 
-        if "Brave" in active_window:
+        if "Brave" in current_window_title:
             pyautogui.hotkey('ctrl', 'l')
             pyautogui.hotkey('ctrl', 'c')
             time.sleep(1) 
             url = pyperclip.paste()       
             print(url)
-            current_window = url_to_name(url)
+            current_window_title = extract_domain_name(url)
 
-        if current_window != active_window:
-            print(active_window)
-            activity_name = active_window
-
-            if not first_time:
+        if current_window_title != active_window_title:
+            if active_window_title:
                 end_time = datetime.datetime.now()
                 time_spent = end_time - start_time
                 formatted_time_spent = format_time_delta(time_spent)
-                data.append({
+                activity_logs.append({
                     activity_name: {
                         'Start time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
                         'End time': end_time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -55,11 +52,11 @@ try:
                 })
                 start_time = datetime.datetime.now()
 
-            first_time = False
-            active_window = current_window
+            active_window_title = current_window_title
+            activity_name = active_window_title
 
         time.sleep(1)
 
 except KeyboardInterrupt:
     with open('activity_log.json', 'w') as json_file:
-        json.dump(data, json_file, indent=4)
+        json.dump(activity_logs, json_file, indent=4)
