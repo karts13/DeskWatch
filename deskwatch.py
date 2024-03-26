@@ -24,7 +24,7 @@ def format_time_delta(delta):
     seconds = int(total_seconds % 60)
     return {'hours': hours, 'minutes': minutes, 'seconds': seconds}
 
-activity_logs = []
+activity_logs = {}
 
 try: 
     while True:
@@ -43,12 +43,15 @@ try:
                 end_time = datetime.datetime.now()
                 time_spent = end_time - start_time
                 formatted_time_spent = format_time_delta(time_spent)
-                activity_logs.append({
-                    activity_name: {
-                        'Start time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
-                        'End time': end_time.strftime("%Y-%m-%d %H:%M:%S"),
-                        'Time spent': formatted_time_spent
-                    }
+                if activity_name in activity_logs:
+                    instance_number = len(activity_logs[activity_name]) + 1
+                    activity_name_with_instance = f"{activity_name} Instance {instance_number}"
+                else:
+                    activity_name_with_instance = activity_name
+                activity_logs.setdefault(activity_name, []).append({
+                    'Start time': start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    'End time': end_time.strftime("%Y-%m-%d %H:%M:%S"),
+                    'Time spent': formatted_time_spent
                 })
                 start_time = datetime.datetime.now()
 

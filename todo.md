@@ -3,7 +3,7 @@
   - [x] Website name
 - [x] Include Timer
 - [x] Output in another file
-- [ ] Include multiple uses
+- [x] Include multiple uses
 - [ ] Work in background
 - [ ] Clear after one session
 - [ ] Make an App 
