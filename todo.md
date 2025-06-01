@@ -4,6 +4,6 @@
 - [x] Include Timer
 - [x] Output in another file
 - [x] Include multiple uses
-- [ ] Work in background
-- [ ] Clear after one session
-- [ ] Make an App 
+- [x] Work in background
+- [x] Clear after one session
+- [x] Make an App 
